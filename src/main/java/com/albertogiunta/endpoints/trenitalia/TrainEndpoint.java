@@ -1,13 +1,13 @@
 package com.albertogiunta.endpoints.trenitalia;
 
 import com.albertogiunta.constants.TI.TAPI;
-import com.albertogiunta.endpoints.exceptions.ClientErrorHandler;
 import com.albertogiunta.endpoints.exceptions.ResourceNotFoundException;
 import com.albertogiunta.model.Station;
 import com.albertogiunta.model.train.Train;
 import com.albertogiunta.model.train.TrainHeaderOnly;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -19,12 +19,16 @@ public class TrainEndpoint {
 
     static {
         REST_TEMPLATE = new RestTemplate();
-        REST_TEMPLATE.setErrorHandler(new ClientErrorHandler());
+//        REST_TEMPLATE.setErrorHandler(new ClientErrorHandler());
         OBJECT_MAPPER = new ObjectMapper();
     }
 
     public static Train getTrain(String departureStationId, String trainId) throws ResourceNotFoundException {
-        return REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN + departureStationId + "/" + trainId, Train.class);
+        try {
+            return REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN + departureStationId + "/" + trainId, Train.class);
+        } catch (RestClientException e) {
+            return null;
+        }
     }
 
     public static Train getTrain(String trainId) throws ResourceNotFoundException {

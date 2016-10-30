@@ -20,7 +20,7 @@ public class DateTimeToDateTimeDeserializer extends StdDeserializer<DateTime> {
 
     @Override
     public DateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        return new DateTime().parse(p.getText());
+        return DateTime.parse(p.getText());
     }
 
     @Override

@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.albertogiunta.endpoints.trenitalia.TrainEndpoint.getStationData;
-import static com.albertogiunta.endpoints.trenitalia.TrainEndpoint.getTrain;
-import static com.albertogiunta.endpoints.trenitalia.TrainEndpoint.getTrainHeaderOnly;
+import java.io.IOException;
+
+import static com.albertogiunta.endpoints.trenitalia.JourneyEndpoint.getJourneyTrainDelay;
+import static com.albertogiunta.endpoints.trenitalia.TrainEndpoint.*;
 
 @RestController
 public class TrainEndpoint {
@@ -42,7 +43,7 @@ public class TrainEndpoint {
             return getStationData(trainId);
         } catch (ResourceNotFoundException e) {
             log.error("Departure station not found. ID {}", trainId);
-            return null;
+            return new Station(trainId, "");
         }
     }
 
@@ -161,4 +162,22 @@ public class TrainEndpoint {
         }
     }
 
+    @RequestMapping(value = JAPI.JOURNEY_DELAY,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public TrainHeaderOnly journeyDelay(@PathVariable(value = JAPI.DEP_STAT_ID) String departureId,
+                                        @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
+                                        @PathVariable(value = JAPI.TRAIN_ID) String trainId,
+                                        @PathVariable(value = JAPI.TRAIN_DEP_STAT_ID, required = false) String trainDepartureStationId) throws IOException {
+        return getJourneyTrainDelay(departureId, arrivalId, trainId, trainDepartureStationId);
+    }
+
+    @RequestMapping(value = JAPI.JOURNEY_DELAY_WITHOUT_STATION,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public TrainHeaderOnly journeyDelayWithoutStation(@PathVariable(value = JAPI.DEP_STAT_ID) String departureId,
+                                                      @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
+                                                      @PathVariable(value = JAPI.TRAIN_ID) String trainId) throws IOException {
+        return getJourneyTrainDelay(departureId, arrivalId, trainId, trainAutocomplete(trainId).getStationLongCode());
+    }
 }

@@ -30,8 +30,8 @@ public class Train {
     private String arrivalStationId;
     private String arrivalStationName;
 
-    private int timeDifference; //TODO vedi se calcolarlo anche a mano
-    private int progress;
+    private Integer timeDifference; //TODO vedi se calcolarlo anche a mano
+    private Integer progress;
 
     private String lastSeenStationName;
     private String lastSeenTimeReadable; // in HH:mm
@@ -39,10 +39,10 @@ public class Train {
     private List<Stop> stops = new ArrayList<>();
     private String cancelledStopsInfo;
 
-    private int firstClassOrientationCode;
-    private int trainStatusCode;
-    private boolean isDeparted;
-    private boolean isArrivedToDestination;
+    private Integer firstClassOrientationCode;
+    private Integer trainStatusCode;
+    private Boolean isDeparted;
+    private Boolean isArrivedToDestination;
 
 
     /*--------------------------------------------------------------------------------------------------------
@@ -137,23 +137,23 @@ public class Train {
 
     /* TIME DIFFERENCE */
     @JsonGetter(JFIELD.TIME_DIFFERENCE)
-    public int getTimeDifference() {
+    public Integer getTimeDifference() {
         return timeDifference;
     }
 
     @JsonSetter(TFIELD.TIME_DIFFERENCE_FOR_TRAIN)
-    public void setTimeDifference(int timeDifference) {
+    public void setTimeDifference(Integer timeDifference) {
         this.timeDifference = timeDifference;
         doAsLatest();
     }
 
     /* PROGRESS */
     @JsonGetter(JFIELD.PROGRESS)
-    public int getProgress() {
+    public Integer getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(Integer progress) {
         this.progress = progress;
     }
 
@@ -214,45 +214,45 @@ public class Train {
 
     /* FIRST CLASS ORIENTATION */
     @JsonGetter(JFIELD.FIRST_CLASS_ORIENTATION)
-    public int getFirstClassOrientationCode() {
+    public Integer getFirstClassOrientationCode() {
         return firstClassOrientationCode;
     }
 
     @JsonSetter(TFIELD.FIRST_CLASS_ORIENTATION)
     @JsonDeserialize(using = TrainOrientationDeserializer.class)
-    public void setFirstClassOrientationCode(int firstClassOrientationCode) {
+    public void setFirstClassOrientationCode(Integer firstClassOrientationCode) {
         this.firstClassOrientationCode = firstClassOrientationCode;
     }
 
     /* TRAIN STATUS COE */
     @JsonGetter(JFIELD.TRAIN_STATUS_CODE)
-    public int getTrainStatusCode() {
+    public Integer getTrainStatusCode() {
         return this.trainStatusCode;
     }
 
     @JsonSetter(TFIELD.TRAIN_STATUS_CODE)
     @JsonDeserialize(using = TrainStatusCodeDeserializer.class)
-    public void setTrainStatusCode(int trainStatusMessage) {
+    public void setTrainStatusCode(Integer trainStatusMessage) {
         this.trainStatusCode = trainStatusMessage;
     }
 
     /* IS DEPARTED*/
     @JsonGetter(value = JFIELD.IS_DEPARTED)
-    public boolean isDeparted() {
+    public Boolean isDeparted() {
         return isDeparted;
     }
 
-    public void setDeparted(boolean departed) {
+    public void setDeparted(Boolean departed) {
         isDeparted = departed;
     }
 
     /* ARRIVED TO DESTINATION */
     @JsonGetter(value = JFIELD.IS_ARRIVED_TO_DESTINATION)
-    public boolean isArrivedToDestination() {
+    public Boolean isArrivedToDestination() {
         return isArrivedToDestination;
     }
 
-    public void setArrivedToDestination(boolean arrivedToDestination) {
+    public void setArrivedToDestination(Boolean arrivedToDestination) {
         isArrivedToDestination = arrivedToDestination;
     }
 
@@ -264,11 +264,11 @@ public class Train {
         if (stops.size() > 0) {
             setDeparted(stops.get(0).getActualDepartureTime() != null);
             setArrivedToDestination(stops.get(stops.size() - 1).getActualDepartureTime() != null);
-            setProgress(setProgress(stops));
+            setProgress(setProgressIndicator(stops));
         }
     }
 
-    private int setProgress(List<Stop> oldArray) {
+    private Integer setProgressIndicator(List<Stop> oldArray) {
         List<Stop> visited = new LinkedList<>();
         long delta = 0L;
         long intermediateDelta;
@@ -279,12 +279,12 @@ public class Train {
         }
 
         if (visited.size() <= 5) {
-            for (int i = visited.size() - 2; i >= 0; i--) {
+            for (Integer i = visited.size() - 2; i >= 0; i--) {
                 intermediateDelta = visited.get(i + 1).getTimeDifference() - visited.get(i).getTimeDifference();
                 delta += intermediateDelta;
             }
         } else {
-            for (int i = visited.size() - 2; i >= visited.size() - 5 - 1; i--) {
+            for (Integer i = visited.size() - 2; i >= visited.size() - 5 - 1; i--) {
                 intermediateDelta = visited.get(i + 1).getTimeDifference() - visited.get(i).getTimeDifference();
                 delta += intermediateDelta;
             }
@@ -298,9 +298,18 @@ public class Train {
         }
     }
 
-    public Stop getStopData(String stationName) {
+    public Stop getStopDataWithStationName(String stationName) {
         for (Stop stop : stops) {
             if (stop.getStationName().equalsIgnoreCase(stationName)) {
+                return stop;
+            }
+        }
+        return null;
+    }
+
+    public Stop getStopDataWithStationId(String stationId) {
+        for (Stop stop : stops) {
+            if (stop.getStationId().replaceAll("(S|N)0+|(S|N)", "").equalsIgnoreCase(stationId)) {
                 return stop;
             }
         }

@@ -18,9 +18,9 @@ public class Stop {
     private String stationId;
     private String stationName;
 
-    private int currentStopStatusCode;
-    private int currentStopTypeCode;
-    private int currentAndNextStopStatusCode;
+    private Integer currentStopStatusCode;
+    private Integer currentStopTypeCode;
+    private Integer currentAndNextStopStatusCode;
 
     private DateTime plannedArrivalTime;
     private DateTime actualArrivalTime;
@@ -34,9 +34,9 @@ public class Stop {
 
     private String departurePlatform;
 
-    private int timeDifference;
+    private Integer timeDifference;
 
-    private boolean isVisited;
+    private Boolean isVisited;
 
 
     /*--------------------------------------------------------------------------------------------------------
@@ -68,12 +68,12 @@ public class Stop {
     --------------------------------------------------------------------------------------------------------*/
 
     @JsonGetter(JFIELD.IS_VISITED)
-    public boolean isVisited() {
+    public Boolean isVisited() {
         return isVisited;
     }
 
     @JsonIgnore
-    public void setVisited(boolean visited) {
+    public void setVisited(Boolean visited) {
         isVisited = visited;
     }
 
@@ -82,13 +82,13 @@ public class Stop {
 
     /* CURRENT STOP CATEGORY */
     @JsonGetter(JFIELD.CURRENT_STOP_TYPE_CODE)
-    public int getCurrentStopTypeCode() {
+    public Integer getCurrentStopTypeCode() {
         return currentStopTypeCode;
     }
 
     @JsonSetter(TFIELD.CURRENT_STOP_TYPE_CODE)
     @JsonDeserialize(using = CurrentStopTypeDeserializer.class)
-    public void setCurrentStopTypeCode(int currentStopTypeCode) {
+    public void setCurrentStopTypeCode(Integer currentStopTypeCode) {
         this.currentStopTypeCode = currentStopTypeCode;
         if (this.currentStopTypeCode == JVALUE.LAST) {
             this.plannedDepartureTime = getPlannedArrivalTime();
@@ -99,25 +99,25 @@ public class Stop {
 
     /* CURRENT STOP TYPE */
     @JsonGetter(JFIELD.CURRENT_STOP_STATUS_CODE)
-    public int getCurrentStopStatusCode() {
+    public Integer getCurrentStopStatusCode() {
         return currentStopStatusCode;
     }
 
     @JsonSetter(TFIELD.CURRENT_STOP_STATUS_CODE)
     @JsonDeserialize(using = CurrentStopTypeDeserializer.class)
-    public void setCurrentStopStatusCode(int currentStopStatusCode) {
+    public void setCurrentStopStatusCode(Integer currentStopStatusCode) {
         this.currentStopStatusCode = currentStopStatusCode;
     }
 
     /* NEXT STOP TYPE*/
     @JsonGetter(JFIELD.CURRENT_AND_NEXT_STOP_STATUS_CODE)
-    public int getCurrentAndNextStopStatusCode() {
+    public Integer getCurrentAndNextStopStatusCode() {
         return currentAndNextStopStatusCode;
     }
 
     @JsonSetter(TFIELD.CURRENT_AND_NEXT_STOP_STATUS_CODE)
     @JsonDeserialize(using = CurrentAndNextStopStatusCodeDeserializer.class)
-    public void setCurrentAndNextStopStatusCode(int currentAndNextStopStatusCode) {
+    public void setCurrentAndNextStopStatusCode(Integer currentAndNextStopStatusCode) {
         this.currentAndNextStopStatusCode = currentAndNextStopStatusCode;
     }
 
@@ -223,19 +223,19 @@ public class Stop {
 
     /* TIME DIFFERENCE */
     @JsonGetter(JFIELD.TIME_DIFFERENCE)
-    public int getTimeDifference() {
+    public Integer getTimeDifference() {
         return timeDifference;
     }
 
     @JsonSetter(TFIELD.TIME_DIFFERENCE_FOR_STOPS)
-    public void setTimeDifference(int timeDifference) {
+    public void setTimeDifference(Integer timeDifference) {
         this.timeDifference = timeDifference;
     }
 
    /*--------------------------------------------------------------------------------------------------------
     --------------------------------------------------------------------------------------------------------*/
 
-    private boolean setVisited(DateTime actualDepartureTime, DateTime actualArrivalTime) {
+    private Boolean setVisited(DateTime actualDepartureTime, DateTime actualArrivalTime) {
         return actualDepartureTime != null || actualArrivalTime != null;
     }
 

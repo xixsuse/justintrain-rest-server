@@ -20,10 +20,10 @@ public class TrainHeaderOnly {
 
     @JsonProperty(value = JFIELD.TRAIN_DEPARTURE_STATION_ID)
     private String trainDepartureStationId;
+    @JsonProperty(value = JFIELD.TRAIN_DEPARTURE_PLATFORM)
+    private String trainDeparturePlatform;
     @JsonProperty(value = JFIELD.DEPARTURE_STATION_NAME)
     private String departureStationName;
-    @JsonProperty(value = JFIELD.DEPARTURE_PLATFORM)
-    private String departurePlatform;
 
     @JsonProperty(value = JFIELD.TRAIN_ARRIVAL_STATION_ID)
     private String arrivalStationId;
@@ -52,4 +52,44 @@ public class TrainHeaderOnly {
     @JsonProperty(value = JFIELD.IS_ARRIVED_TO_DESTINATION)
     private boolean isArrivedToDestination;
 
+    @JsonProperty(value = JFIELD.JOURNEY_DEPARTURE_STATION_ID)
+    public String journeyDepartureStationId;
+    @JsonProperty(value = JFIELD.JOURNEY_ARRIVAL_STATION_ID)
+    public String journeyArrivalStationId;
+    @JsonProperty(value = JFIELD.DEPARTURE_PLATFORM)
+    public String departurePlatform;
+    @JsonProperty(value = JFIELD.IS_VISITED)
+    public Boolean isVisited;
+
+    public String getJourneyDepartureStationId() {
+        return journeyDepartureStationId;
+    }
+
+    public void setJourneyDepartureStationId(String journeyDepartureStationId) {
+        this.journeyDepartureStationId = journeyDepartureStationId;
+    }
+
+    public String getJourneyArrivalStationId() {
+        return journeyArrivalStationId;
+    }
+
+    public void setJourneyArrivalStationId(String journeyArrivalStationId) {
+        this.journeyArrivalStationId = journeyArrivalStationId;
+    }
+
+    public String getDeparturePlatform() {
+        return departurePlatform;
+    }
+
+    public void setDeparturePlatform(String departurePlatform) {
+        this.departurePlatform = departurePlatform;
+    }
+
+    public Boolean getVisited() {
+        return isVisited;
+    }
+
+    public void setVisited(Boolean visited) {
+        isVisited = visited;
+    }
 }

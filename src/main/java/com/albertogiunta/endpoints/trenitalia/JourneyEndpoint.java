@@ -1,12 +1,13 @@
 package com.albertogiunta.endpoints.trenitalia;
 
 import com.albertogiunta.constants.TI.TAPI;
-import com.albertogiunta.endpoints.exceptions.ClientErrorHandler;
 import com.albertogiunta.endpoints.exceptions.ResourceNotFoundException;
 import com.albertogiunta.model.journey.Change;
 import com.albertogiunta.model.journey.Journey;
 import com.albertogiunta.model.journey.Solution;
+import com.albertogiunta.model.train.Stop;
 import com.albertogiunta.model.train.Train;
+import com.albertogiunta.model.train.TrainHeaderOnly;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
@@ -26,7 +27,37 @@ public class JourneyEndpoint {
 
     static {
         REST_TEMPLATE = new RestTemplate();
-        REST_TEMPLATE.setErrorHandler(new ClientErrorHandler());
+//        REST_TEMPLATE.setErrorHandler(new ClientErrorHandler());
+    }
+
+    public static TrainHeaderOnly getJourneyTrainDelay(String departureStationId,
+                                                       String arrivalStationId,
+                                                       String trainId,
+                                                       String trainDepartureStationId) throws IOException {
+
+
+        Train train;
+        if (trainDepartureStationId == null) {
+            train = TrainEndpoint.getTrain(trainId);
+        } else {
+            train = TrainEndpoint.getTrain(trainDepartureStationId, trainId);
+        }
+        if (train != null) {
+            Stop stop = train.getStopDataWithStationId(departureStationId);
+            log.warn(stop.toString());
+            TrainHeaderOnly trainHeader = new TrainHeaderOnly();
+            ObjectMapper oj = new ObjectMapper();
+            oj.readerForUpdating(trainHeader).readValue(new Gson().toJson(train));
+            trainHeader.setJourneyDepartureStationId(train.getTrainDepartureStationId());
+            trainHeader.setJourneyDepartureStationId(departureStationId);
+            trainHeader.setJourneyArrivalStationId(arrivalStationId);
+            trainHeader.setDeparturePlatform(stop.getDeparturePlatform());
+            trainHeader.setVisited(stop.isVisited());
+            return trainHeader;
+        }
+
+        throw new ResourceNotFoundException();
+
     }
 
     public static Journey getJourney(String departureStationId,
@@ -121,8 +152,10 @@ public class JourneyEndpoint {
                     for (Change change : solution.getChanges()) {
                         try {
                             Train train = TrainEndpoint.getTrain(change.getTrainId());
-                            mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
-                            change.setPlatform(train.getStopData(solution.getChanges().get(0).getDepartureStationName()));
+                            if (train != null) {
+                                mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
+                                change.setPlatform(train.getStopDataWithStationName(solution.getChanges().get(0).getDepartureStationName()));
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -24,6 +24,7 @@ public class Station {
     public Station() {
     }
 
+
     public Station(String trainId, String string) {
         this.trainId = trainId;
         trainAutocomplete(string);
@@ -73,11 +74,17 @@ public class Station {
     }
 
     private void trainAutocomplete(String s) {
-        final Matcher m = Pattern
-                .compile("(?<=\\d{0,10} \\- )(.*?)(?=\\|)|(?<=\\|\\d{0,10}\\-)(.*?)\\w+")
-                .matcher(s);
+        if (s != null) {
+            final Matcher m = Pattern
+                    .compile("(?<=\\d{0,10} \\- )(.*?)(?=\\|)|(?<=\\|\\d{0,10}\\-)(.*?)\\w+")
+                    .matcher(s);
+            setStationName(m.find() ? m.group() : "");
+            setStationLongCode(m.find() ? m.group() : "");
+            return;
+        }
 
-        setStationName(m.find() ? m.group() : "");
-        setStationLongCode(m.find() ? m.group() : "");
+        setStationName("");
+        setStationLongCode("");
+
     }
 }

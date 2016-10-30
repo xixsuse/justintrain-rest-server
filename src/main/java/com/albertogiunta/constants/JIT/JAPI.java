@@ -22,17 +22,17 @@ public class JAPI {
 
     // JOURNEY
     public static final String INSTANT_JOURNEY = "/departure/{departureStationId}/arrival/{arrivalStationId}/instant";
-    public static final String JOURNEY_AFTER_TIME = "/departure/{departureStationId}/arrival/{arrivalStationId}/look-forward";
+    public static final String JOURNEY_AFTER_TIME = "/departure/{departureStationId}/arrival/{arrivalStationId}/look-ahead";
     public static final String JOURNEY_BEFORE_TIME = "/departure/{departureStationId}/arrival/{arrivalStationId}/look-behind";
+    public static final String JOURNEY_DELAY = "/departure/{departureStationId}/arrival/{arrivalStationId}/train/{trainId}/station/{trainDepartureStationId}";
+    public static final String JOURNEY_DELAY_WITHOUT_STATION = "/departure/{departureStationId}/arrival/{arrivalStationId}/train/{trainId}";
 
 
     // PARAMS - TRAIN CONTROLLER
     public static final String TRAIN_ID = "trainId";
+    public static final String TRAIN_DEP_STAT_ID = "trainDepartureStationId";
     public static final String DEP_STAT_ID = "departureStationId";
     public static final String ARR_STAT_ID = "arrivalStationId";
-    public static final String DEP_TIME = "departureTime";
-    public static final String PERS_DEP_STAT_ID = "personalDepartureStationId";
-    public static final String PERS_ARR_STAT_ID = "personalArrivalStationId";
 
     // PARAMS - JOURNEY CONTROLLER
     public static final String STARTING_FROM = "start-from";
@@ -42,5 +42,4 @@ public class JAPI {
 
     // PARAMS - NEWS CONTROLLER
     public static final String STATION_NAME = "stationName";
-
 }

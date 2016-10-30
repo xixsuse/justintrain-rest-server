@@ -6,6 +6,7 @@ public class JFIELD {
     public static final String TRAIN_ID = "trainId";
     public static final String JOURNEY_DEPARTURE_STATION_ID = "journeyDepartureStationId";
     public static final String TRAIN_DEPARTURE_STATION_ID = "trainDepartureStationId";
+    public static final String TRAIN_DEPARTURE_PLATFORM = "trainDeparturePlatform";
     public static final String DEPARTURE_STATION_NAME = "departureStationName";
     public static final String DEPARTURE_TIME = "departureTime";
     public static final String DEPARTURE_TIME_READABLE = "departureTimeReadable";
