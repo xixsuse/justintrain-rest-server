@@ -57,7 +57,7 @@ public class JFIELD {
     public static final String JOURNEY_ARRIVAL_STATION_ID = "journeyArrivalStationId";
     public static final String PROGRESS = "progress";
     public static final String LAST_SEEN_STATION_NAME = "lastSeenStationName";
-    public static final String LAST_SEEN_TIME_READABLE = "lastSeenTImeReadable";
+    public static final String LAST_SEEN_TIME_READABLE = "lastSeenTimeReadable";
     public static final String STOPS = "stops";
     public static final String CANCELLED_STOPS_INFO = "cancelledStopsInfo";
     public static final String FIRST_CLASS_ORIENTATION = "firstClassOrientation";

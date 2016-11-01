@@ -30,8 +30,8 @@ public class TrainEndpoint {
             return null;
         }
     }
-
-    public static Train getTrain(String trainId) throws ResourceNotFoundException {
+    
+    static Train getTrain(String trainId) throws ResourceNotFoundException {
         return getTrain(getStationData(trainId).getStationLongCode(), trainId);
     }
 

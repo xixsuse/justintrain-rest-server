@@ -53,13 +53,13 @@ public class TrainHeaderOnly {
     private boolean isArrivedToDestination;
 
     @JsonProperty(value = JFIELD.JOURNEY_DEPARTURE_STATION_ID)
-    public String journeyDepartureStationId;
+    private String journeyDepartureStationId;
     @JsonProperty(value = JFIELD.JOURNEY_ARRIVAL_STATION_ID)
-    public String journeyArrivalStationId;
+    private String journeyArrivalStationId;
     @JsonProperty(value = JFIELD.DEPARTURE_PLATFORM)
-    public String departurePlatform;
+    private String departurePlatform;
     @JsonProperty(value = JFIELD.IS_VISITED)
-    public Boolean isVisited;
+    private Boolean isVisited;
 
     public String getJourneyDepartureStationId() {
         return journeyDepartureStationId;
