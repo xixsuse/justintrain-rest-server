@@ -14,19 +14,18 @@ The services offered so far are:
 ### Offered endpoints
 If you'd like to know more about the Endpoints that are offered you can do it by clicking here: [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/951a59a0db4100c75583)
 
-### Run it on your server!
+### Run it on your server
 If you'd like to try this code out on you're own server or you want to improve you can do it by cloning this very repository
 
-`git clone https://github.com/JustInTrain/server_spring.git`
+`git clone https://github.com/JustInTrain/justintrain-rest-server.git`
 
 then just go the downloaded directory and build/run it with gradle (*JAVA 8 REQUIRED*)
 
-`cd server_spring`
+`cd justintrain-rest-server`
 
 `./gradlew bootRun`
 
 ### TODO 
 - [ ] Authentication
 - [ ] Requests logging
-- [ ] Error handling
-- [ ] Better documentation
+- [ ] API documentation
