@@ -45,7 +45,9 @@ public class JFIELD {
     public static final String TRAIN_ARRIVAL_STATION_ID = "trainArrivalStationId";
     public static final String JOURNEY_DEPARTURE_STATION_ID = "journeyDepartureStationId";
     public static final String JOURNEY_DEPARTURE_STATION_NAME = "journeyDepartureStationName";
+    public static final String DEPARTURE_STATION_NAME = "departureStationName";
     public static final String JOURNEY_ARRIVAL_STATION_ID = "journeyArrivalStationId";
+    public static final String ARRIVAL_STATION_NAME = "arrivalStationName";
     public static final String JOURNEY_ARRIVAL_STATION_NAME = "journeyArrivalStationName";
     public static final String PROGRESS = "progress";
     public static final String LAST_SEEN_STATION_NAME = "lastSeenStationName";

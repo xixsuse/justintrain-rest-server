@@ -24,11 +24,11 @@ public class Train {
     private String trainId;
 
     private String trainDepartureStationId;
-    private String departureStationName;
+    private String trainDepartureStationName;
 //    private String departurePlatform;
-
-    private String arrivalStationId;
-    private String arrivalStationName;
+    
+    private String trainArrivalStationId;
+    private String trainArrivalStationName;
 
     private Integer timeDifference; //TODO vedi se calcolarlo anche a mano
     private Integer progress;
@@ -87,13 +87,13 @@ public class Train {
 
     /* DEPARTURE STATION NAME */
     @JsonGetter(JFIELD.TRAIN_DEPARTURE_STATION_NAME)
-    public String getDepartureStationName() {
-        return departureStationName;
+    public String getTrainDepartureStationName() {
+        return trainDepartureStationName;
     }
 
     @JsonSetter(TFIELD.DEPARTURE_STATION_NAME)
-    public void setDepartureStationName(String departureStationName) {
-        this.departureStationName = departureStationName;
+    public void setTrainDepartureStationName(String trainDepartureStationName) {
+        this.trainDepartureStationName = trainDepartureStationName;
     }
 
     /* DEPARTURE STATION PLATFORM */
@@ -112,24 +112,24 @@ public class Train {
 
     /* ARRIVAL STATION ID */
     @JsonGetter(JFIELD.TRAIN_ARRIVAL_STATION_ID)
-    public String getArrivalStationId() {
-        return arrivalStationId;
+    public String getTrainArrivalStationId() {
+        return trainArrivalStationId;
     }
 
     @JsonSetter(TFIELD.ARRIVAL_STATION_ID)
-    public void setArrivalStationId(String arrivalStationId) {
-        this.arrivalStationId = arrivalStationId;
+    public void setTrainArrivalStationId(String trainArrivalStationId) {
+        this.trainArrivalStationId = trainArrivalStationId;
     }
 
     /* ARRIVAL STATION NAME*/
     @JsonGetter(JFIELD.TRAIN_ARRIVAL_STATION_NAME)
-    public String getArrivalStationName() {
-        return arrivalStationName;
+    public String getTrainArrivalStationName() {
+        return trainArrivalStationName;
     }
 
     @JsonSetter(TFIELD.ARRIVAL_STATION_NAME)
-    public void setArrivalStationName(String arrivalStationName) {
-        this.arrivalStationName = arrivalStationName;
+    public void setTrainArrivalStationName(String trainArrivalStationName) {
+        this.trainArrivalStationName = trainArrivalStationName;
     }
 
     /*--------------------------------------------------------------------------------------------------------
@@ -329,9 +329,9 @@ public class Train {
                 ", lastSeenStationName='" + lastSeenStationName + '\'' +
                 ", progress=" + progress +
                 ", timeDifference=" + timeDifference +
-                ", arrivalStationName='" + arrivalStationName + '\'' +
-                ", arrivalStationId='" + arrivalStationId + '\'' +
-                ", departureStationName='" + departureStationName + '\'' +
+                ", trainArrivalStationName='" + trainArrivalStationName + '\'' +
+                ", trainArrivalStationId='" + trainArrivalStationId + '\'' +
+                ", trainDepartureStationName='" + trainDepartureStationName + '\'' +
                 ", trainDepartureStationId='" + trainDepartureStationId + '\'' +
                 ", trainId='" + trainId + '\'' +
                 ", trainCategory='" + trainCategory + '\'' +
