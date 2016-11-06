@@ -80,8 +80,8 @@ public class Change {
     public void setDepartureStationId(String departureStationId) {
         this.departureStationId = departureStationId;
     }
-
-    @JsonGetter(value = JFIELD.DEPARTURE_STATION_NAME)
+    
+    @JsonGetter(value = JFIELD.TRAIN_DEPARTURE_STATION_NAME)
     public String getDepartureStationName() {
         return departureStationName;
     }
@@ -112,8 +112,8 @@ public class Change {
     public void setDeparturePlatform(String departurePlatform) {
         this.departurePlatform = departurePlatform;
     }
-
-    @JsonGetter(value = JFIELD.ARRIVAL_STATION_NAME)
+    
+    @JsonGetter(value = JFIELD.TRAIN_ARRIVAL_STATION_NAME)
     public String getArrivalStationName() {
         return arrivalStationName;
     }

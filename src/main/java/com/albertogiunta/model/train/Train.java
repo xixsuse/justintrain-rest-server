@@ -86,7 +86,7 @@ public class Train {
     }
 
     /* DEPARTURE STATION NAME */
-    @JsonGetter(JFIELD.DEPARTURE_STATION_NAME)
+    @JsonGetter(JFIELD.TRAIN_DEPARTURE_STATION_NAME)
     public String getDepartureStationName() {
         return departureStationName;
     }
@@ -122,7 +122,7 @@ public class Train {
     }
 
     /* ARRIVAL STATION NAME*/
-    @JsonGetter(JFIELD.ARRIVAL_STATION_NAME)
+    @JsonGetter(JFIELD.TRAIN_ARRIVAL_STATION_NAME)
     public String getArrivalStationName() {
         return arrivalStationName;
     }

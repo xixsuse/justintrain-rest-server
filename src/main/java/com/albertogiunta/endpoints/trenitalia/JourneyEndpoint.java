@@ -11,6 +11,7 @@ import com.albertogiunta.model.train.TrainHeaderOnly;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.albertogiunta.constants.JIT.JVALUE.*;
+import static org.joda.time.Minutes.minutesBetween;
 
 public class JourneyEndpoint {
 
@@ -43,21 +45,36 @@ public class JourneyEndpoint {
             train = TrainEndpoint.getTrain(trainDepartureStationId, trainId);
         }
         if (train != null) {
-            Stop stop = train.getStopDataWithStationId(departureStationId);
-            log.warn(stop.toString());
+            Stop journeyDepartureStop = train.getStopDataWithStationId(departureStationId);
+            Stop journeyArrivalStop = train.getStopDataWithStationId(arrivalStationId);
+            log.warn(journeyDepartureStop.toString());
             TrainHeaderOnly trainHeader = new TrainHeaderOnly();
             ObjectMapper oj = new ObjectMapper();
             oj.readerForUpdating(trainHeader).readValue(new Gson().toJson(train));
-            trainHeader.setJourneyDepartureStationId(train.getTrainDepartureStationId());
+    
             trainHeader.setJourneyDepartureStationId(departureStationId);
+            trainHeader.setJourneyDepartureStationName(journeyDepartureStop.getStationName());
+            trainHeader.setJourneyDepartureTime(journeyDepartureStop.getPlannedDepartureTime());
+            trainHeader.setJourneyDepartureStationVisited(journeyDepartureStop.isVisited());
+            trainHeader.setDeparturePlatform(journeyDepartureStop.getDeparturePlatform());
+            
             trainHeader.setJourneyArrivalStationId(arrivalStationId);
-            trainHeader.setDeparturePlatform(stop.getDeparturePlatform());
-            trainHeader.setVisited(stop.isVisited());
+            trainHeader.setJourneyArrivalStationName(journeyArrivalStop.getStationName());
+            trainHeader.setJourneyArrivalTime(journeyArrivalStop.getPlannedDepartureTime());
+            trainHeader.setJourneyArrivalStationVisited(journeyArrivalStop.isVisited());
+    
+            if (trainHeader.getTimeDifference() != null) {
+                int eta;
+                if (!journeyDepartureStop.isVisited()) {
+                    eta = Minutes.minutesBetween(DateTime.now(), journeyDepartureStop.getPlannedDepartureTime().plusMinutes(train.getTimeDifference())).getMinutes();
+                } else {
+                    eta = minutesBetween(DateTime.now(), journeyArrivalStop.getPlannedDepartureTime().plusMinutes(train.getTimeDifference())).getMinutes();
+                }
+                trainHeader.setETAToNextJourneyStation(eta);
+            }
             return trainHeader;
         }
-
         throw new ResourceNotFoundException();
-
     }
 
     public static Journey getJourney(String departureStationId,
