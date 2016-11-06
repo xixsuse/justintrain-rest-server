@@ -20,6 +20,11 @@ jar {
 	baseName = 'justintrain-rest-server'
 	version = '0.0.1-SNAPSHOT'
 }
+
+springBoot {
+	mainClass = "com.albertogiunta.JustintrainRestServerApplication"
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
