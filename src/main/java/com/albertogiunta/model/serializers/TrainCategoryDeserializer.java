@@ -30,7 +30,7 @@ public class TrainCategoryDeserializer extends StdDeserializer<String> {
             case "Frecciabianca":
                 category = "FB";
                 break;
-            case "Frecciargento":
+            case "Frecciaargento":
                 category = "FA";
                 break;
             case "Autobus":
