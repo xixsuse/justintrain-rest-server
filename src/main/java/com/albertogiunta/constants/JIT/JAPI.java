@@ -26,8 +26,9 @@ public class JAPI {
     public static final String JOURNEY_BEFORE_TIME = "/departure/{departureStationId}/arrival/{arrivalStationId}/look-behind";
     public static final String JOURNEY_DELAY = "/departure/{departureStationId}/arrival/{arrivalStationId}/train/{trainId}/station/{trainDepartureStationId}";
     public static final String JOURNEY_DELAY_WITHOUT_STATION = "/departure/{departureStationId}/arrival/{arrivalStationId}/train/{trainId}";
-
-
+    
+    public static final String MESSAGES = "/messages";
+    
     // PARAMS - TRAIN CONTROLLER
     public static final String TRAIN_ID = "trainId";
     public static final String TRAIN_DEP_STAT_ID = "trainDepartureStationId";
