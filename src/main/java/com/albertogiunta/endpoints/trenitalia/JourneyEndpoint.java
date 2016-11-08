@@ -99,12 +99,12 @@ public class JourneyEndpoint {
 
         log.warn(time.toString(yyyyMMddTHHmm00));
         log.warn(journey.toString());
-
-        if (startTime != null || (startTime == null && endTime == null)) {
-            cutToMaxNumberAllowed(journey, RIDES_PER_REQUEST);
-        }
+    
         if (searchPreemptive) {
             cutStartOfList(journey, startTime);
+        }
+        if (startTime != null || (startTime == null && endTime == null)) {
+            cutToMaxNumberAllowed(journey, RIDES_PER_REQUEST);
         }
         if (endTime != null) {
             cutEndOfList(journey, endTime);
@@ -131,7 +131,9 @@ public class JourneyEndpoint {
 
     private static void cutStartOfList(Journey journey, DateTime startTime) {
         // cut list at the element at the last element where departuretime is before endtime
-        journey.setSolutions(journey.getSolutions().subList(getIndexOfFirstAfterTime(journey.getSolutions(), startTime), journey.getSolutions().size() - 1));
+        journey.setSolutions(journey.getSolutions().subList(
+                getIndexOfFirstAfterTime(journey.getSolutions(), startTime),
+                journey.getSolutions().size()));
     }
 
     private static void cutEndOfList(Journey journey, DateTime endTime) {
@@ -209,7 +211,7 @@ public class JourneyEndpoint {
                 journey.getSolutions().get(minIndex).setArrivesFirst(false);
             }
         } catch (IndexOutOfBoundsException e) {
-
+            log.warn("IndexOutOfBoundsException!!!!!");
         }
     }
 }
