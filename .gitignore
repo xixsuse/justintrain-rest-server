@@ -33,6 +33,7 @@ fabric.properties
 # .idea/misc.xml 
 # *.ipr
 
+*.iml
 
 ### Java ###
 *.class
