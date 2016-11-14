@@ -4,6 +4,8 @@ import com.albertogiunta.constants.JIT.JAPI;
 import com.albertogiunta.constants.JIT.JVALUE;
 import com.albertogiunta.model.journey.Journey;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import static com.albertogiunta.endpoints.trenitalia.JourneyEndpoint.getJourney;
 
 @RestController
 public class JourneyEndpoint {
+
+    private static final Logger log = LoggerFactory.getLogger(JourneyEndpoint.class);
 
     /**
      * Given departure and arrival data, returns a list of possible rides one could take to go from station A to station B.
@@ -55,6 +59,12 @@ public class JourneyEndpoint {
                                     @RequestParam(value = JAPI.STARTING_FROM) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmssZ) Date startAt,
                                     @RequestParam(value = JAPI.IS_PREEMPTIVE, required = false, defaultValue = "false") Boolean isPreemptive,
                                     @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay) {
+        DateTime d = new DateTime(startAt);
+        if (d.isAfter(DateTime.now().withHourOfDay(23).withMinuteOfHour(59)) ||
+                d.isBefore(DateTime.now().withHourOfDay(0).withMinuteOfHour(0))) {
+            includeDelay = false;
+            log.warn("Searching for a day that is not today. I'll give you delays, but not today.");
+        }
         return getJourney(departureId, arrivalId, new DateTime(startAt), null, includeDelay, isPreemptive);
     }
 

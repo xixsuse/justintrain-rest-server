@@ -183,6 +183,7 @@ public class JourneyEndpoint {
             }
             solution.doAsLatest();
 
+            // USE FOR TESTS -- modify to test specific solutions
 //            if (detailedTrainsNumber == 0) {
 //                journey.getSolutions().get(0).getSolution().setDepartureTime(
 //                        journey.getSolutions().get(0).getSolution().getDepartureTime().plusMinutes(10)
