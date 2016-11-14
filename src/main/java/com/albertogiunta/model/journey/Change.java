@@ -27,6 +27,7 @@ public class Change {
     private DateTime departureTime;
     private String departurePlatform;
 
+    private boolean isRunning;
     private String arrivalStationName;
     private DateTime arrivalTime;
 

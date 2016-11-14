@@ -3,12 +3,15 @@ package com.albertogiunta.model.train;
 import com.albertogiunta.constants.JIT.JFIELD;
 import com.albertogiunta.constants.JIT.JVALUE;
 import com.albertogiunta.constants.TI.TFIELD;
+import com.albertogiunta.endpoints.trenitalia.JourneyEndpoint;
 import com.albertogiunta.model.serializers.LastSeenSerializer;
 import com.albertogiunta.model.serializers.TrainCategoryDeserializer;
 import com.albertogiunta.model.serializers.TrainOrientationDeserializer;
 import com.albertogiunta.model.serializers.TrainStatusCodeDeserializer;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,6 +22,8 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("unused")
 public class Train {
+
+    private static final Logger log = LoggerFactory.getLogger(JourneyEndpoint.class);
     
     private String trainCategory;
     private String trainId;
@@ -299,17 +304,24 @@ public class Train {
     }
     
     public Stop getStopDataWithStationName(String stationName) {
+        log.warn(stationName);
         for (Stop stop : stops) {
-            if (stop.getStationName().equalsIgnoreCase(stationName)) {
+            if (stop.getStationName()
+                    //.replaceAll("Bologna C.LE/AV", "Bologna Centrale")
+                    .equalsIgnoreCase(stationName)) {
                 return stop;
             }
         }
-        return null;
+        return new Stop();
     }
     
     public Stop getStopDataWithStationId(String stationId) {
+        log.warn(stationId);
         for (Stop stop : stops) {
-            if (stop.getStationId().replaceAll("(S|N)0+|(S|N)", "").equalsIgnoreCase(stationId)) {
+            if (stop.getStationId()
+                    .replaceAll("S05046", "S05043") //sosituisco bologna c.le/av con bologna c.le
+                    .replaceAll("(S|N)0+|(S|N)", "")
+                    .equalsIgnoreCase(stationId)) {
                 return stop;
             }
         }

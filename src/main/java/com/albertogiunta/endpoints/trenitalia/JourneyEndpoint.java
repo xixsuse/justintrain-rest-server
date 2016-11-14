@@ -45,9 +45,9 @@ public class JourneyEndpoint {
             train = TrainEndpoint.getTrain(trainDepartureStationId, trainId);
         }
         if (train != null) {
+            log.warn(train.toString());
             Stop journeyDepartureStop = train.getStopDataWithStationId(departureStationId);
             Stop journeyArrivalStop = train.getStopDataWithStationId(arrivalStationId);
-            log.warn(journeyDepartureStop.toString());
             TrainHeaderOnly trainHeader = new TrainHeaderOnly();
             ObjectMapper oj = new ObjectMapper();
             oj.readerForUpdating(trainHeader).readValue(new Gson().toJson(train));
