@@ -325,7 +325,7 @@ public class Train {
                 return stop;
             }
         }
-        return getStopDataWithStationName(stationId);
+        return null;
     }
     
     

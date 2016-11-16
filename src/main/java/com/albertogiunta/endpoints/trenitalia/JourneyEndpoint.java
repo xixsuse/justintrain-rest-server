@@ -48,6 +48,10 @@ public class JourneyEndpoint {
             log.warn(train.toString());
             Stop journeyDepartureStop = train.getStopDataWithStationId(departureStationId);
             Stop journeyArrivalStop = train.getStopDataWithStationId(arrivalStationId);
+            if (journeyArrivalStop == null || journeyDepartureStop == null) {
+                log.warn("Impossibile trovare informazioni per {} {} {}", departureStationId, arrivalStationId, trainId);
+                throw new ResourceNotFoundException();
+            }
             TrainHeaderOnly trainHeader = new TrainHeaderOnly();
             ObjectMapper oj = new ObjectMapper();
             oj.readerForUpdating(trainHeader).readValue(new Gson().toJson(train));
@@ -62,7 +66,7 @@ public class JourneyEndpoint {
             trainHeader.setJourneyArrivalStationName(journeyArrivalStop.getStationName());
             trainHeader.setJourneyArrivalTime(journeyArrivalStop.getPlannedDepartureTime());
             trainHeader.setJourneyArrivalStationVisited(journeyArrivalStop.isVisited());
-    
+
             if (trainHeader.getTimeDifference() != null) {
                 int eta;
                 if (!journeyDepartureStop.isVisited()) {
