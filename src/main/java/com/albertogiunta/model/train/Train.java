@@ -89,8 +89,8 @@ public class Train {
     public void setTrainDepartureStationId(String trainDepartureStationId) {
         this.trainDepartureStationId = trainDepartureStationId;
     }
-    
-    /* DEPARTURE STATION NAME */
+
+    /* DEPARTURE STATION NAME_LONG */
     @JsonGetter(JFIELD.TRAIN_DEPARTURE_STATION_NAME)
     public String getTrainDepartureStationName() {
         return trainDepartureStationName;
@@ -125,8 +125,8 @@ public class Train {
     public void setTrainArrivalStationId(String trainArrivalStationId) {
         this.trainArrivalStationId = trainArrivalStationId;
     }
-    
-    /* ARRIVAL STATION NAME*/
+
+    /* ARRIVAL STATION NAME_LONG*/
     @JsonGetter(JFIELD.TRAIN_ARRIVAL_STATION_NAME)
     public String getTrainArrivalStationName() {
         return trainArrivalStationName;
@@ -332,21 +332,21 @@ public class Train {
     @Override
     public String toString() {
         return "Train{" +
-                "isArrivedToDestination=" + isArrivedToDestination +
+                ", trainId='" + trainId + '\'' +
+                ", trainCategory='" + trainCategory + '\'' +
+                ", trainStatusCode=" + trainStatusCode + // se è cancellato o roba simile
+                ", trainDepartureStationId='" + trainDepartureStationId + '\'' +
+                ", trainDepartureStationName='" + trainDepartureStationName + '\'' +
+                ", trainArrivalStationId='" + trainArrivalStationId + '\'' +
+                ", trainArrivalStationName='" + trainArrivalStationName + '\'' +
                 ", isDeparted=" + isDeparted +
-                ", trainStatusCode=" + trainStatusCode +
-                ", cancelledStopsInfo='" + cancelledStopsInfo + '\'' +
-                ", stops=" + stops +
+                ", isArrivedToDestination=" + isArrivedToDestination +
                 ", lastSeenTimeReadable='" + lastSeenTimeReadable + '\'' +
                 ", lastSeenStationName='" + lastSeenStationName + '\'' +
                 ", progress=" + progress +
                 ", timeDifference=" + timeDifference +
-                ", trainArrivalStationName='" + trainArrivalStationName + '\'' +
-                ", trainArrivalStationId='" + trainArrivalStationId + '\'' +
-                ", trainDepartureStationName='" + trainDepartureStationName + '\'' +
-                ", trainDepartureStationId='" + trainDepartureStationId + '\'' +
-                ", trainId='" + trainId + '\'' +
-                ", trainCategory='" + trainCategory + '\'' +
+                ", cancelledStopsInfo='" + cancelledStopsInfo + '\'' +
+                ", stops=" + stops +
                 '}';
     }
 }

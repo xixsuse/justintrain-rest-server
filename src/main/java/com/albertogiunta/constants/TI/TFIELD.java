@@ -23,7 +23,8 @@ public class TFIELD {
 
     // STATION 4 DATABASE
     public static final String STATION_LONG_ID = "id";
-    public static final String NAME = "nomeLungo";
+    public static final String NAME_SHORT = "nomeBreve";
+    public static final String NAME_LONG = "nomeLungo";
 
     // STOP
     public static final String STATION_ID = "id";

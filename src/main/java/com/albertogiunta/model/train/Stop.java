@@ -53,7 +53,7 @@ public class Stop {
         this.stationId = stationId;
     }
 
-    /* STATION NAME */
+    /* STATION NAME_LONG */
     @JsonGetter(JFIELD.STATION_NAME)
     public String getStationName() {
         return stationName;
@@ -104,7 +104,7 @@ public class Stop {
     }
 
     @JsonSetter(TFIELD.CURRENT_STOP_STATUS_CODE)
-    @JsonDeserialize(using = CurrentStopTypeDeserializer.class)
+    @JsonDeserialize(using = CurrentStopStatusCodeDeserializer.class)
     public void setCurrentStopStatusCode(Integer currentStopStatusCode) {
         this.currentStopStatusCode = currentStopStatusCode;
     }

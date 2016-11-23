@@ -3,6 +3,7 @@ package com.albertogiunta.model;
 import com.albertogiunta.constants.JIT.JFIELD;
 import com.albertogiunta.constants.TI.TFIELD;
 import com.fasterxml.jackson.annotation.*;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +16,8 @@ public class Station {
 
     @JsonProperty(JFIELD.TRAIN_ID)
     String trainId;
-    String stationName;
+    String stationShortName;
+    String stationLongName;
     @JsonProperty(JFIELD.STATION_LONG_ID)
     String stationLongCode;
     @JsonProperty(JFIELD.STATION_SHORT_ID)
@@ -40,14 +42,24 @@ public class Station {
         this.trainId = trainId;
     }
 
-    @JsonGetter(value = JFIELD.NAME)
-    public String getStationName() {
-        return stationName;
+    @JsonGetter(value = JFIELD.NAME_SHORT)
+    public String getStationShortName() {
+        return stationShortName;
     }
 
-    @JsonSetter(value = TFIELD.NAME)
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    @JsonSetter(value = TFIELD.NAME_SHORT)
+    public void setStationShortName(String stationShortName) {
+        this.stationShortName = stationShortName;
+    }
+
+    @JsonGetter(value = JFIELD.NAME_LONG)
+    public String getStationLongName() {
+        return stationLongName;
+    }
+
+    @JsonSetter(value = TFIELD.NAME_LONG)
+    public void setStationLongName(String stationLongName) {
+        this.stationLongName = WordUtils.capitalizeFully(stationLongName);
     }
 
     @JsonGetter(value = JFIELD.STATION_LONG_ID)
@@ -78,12 +90,12 @@ public class Station {
             final Matcher m = Pattern
                     .compile("(?<=\\d{0,10} \\- )(.*?)(?=\\|)|(?<=\\|\\d{0,10}\\-)(.*?)\\w+")
                     .matcher(s);
-            setStationName(m.find() ? m.group() : "");
+            setStationLongName(m.find() ? m.group() : "");
             setStationLongCode(m.find() ? m.group() : "");
             return;
         }
 
-        setStationName("");
+        setStationLongName("");
         setStationLongCode("");
 
     }

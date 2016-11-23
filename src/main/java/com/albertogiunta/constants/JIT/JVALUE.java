@@ -34,7 +34,7 @@ public class JVALUE {
     public static final int EXTRAORDINARY = 2;
     public static final int DELETED = 3;
 
-    // NEXT STOP STATUS CODE
+    // NEXT STOP STATUS CODE current visited next visited
     public static final int CVNV = 1;
     public static final int CVNU = 2;
     public static final int CUNU = 3;

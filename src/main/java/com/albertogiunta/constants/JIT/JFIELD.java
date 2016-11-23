@@ -27,7 +27,8 @@ public class JFIELD {
     // STATION 4 DATABASE
     public static final String STATION_SHORT_ID = "stationShortId";
     public static final String STATION_LONG_ID = "stationLongId";
-    public static final String NAME = "name";
+    public static final String NAME_SHORT = "nameShort";
+    public static final String NAME_LONG = "nameLong";
 
 
     // STOP
