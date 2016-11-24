@@ -142,7 +142,7 @@ public class JourneyEndpoint {
 
     private static void cutEndOfList(Journey journey, DateTime endTime) {
         // cut list at the element at the last element where departuretime is before endtime
-        journey.setSolutions(journey.getSolutions().subList(0, getIndexOfFirstAfterTime(journey.getSolutions(), endTime)));
+        journey.setSolutions(journey.getSolutions().subList(0, getIndexOfFirstAfterTime(journey.getSolutions(), endTime) + 1));
     }
 
     private static int getIndexOfFirstAfterTime(List<Solution> solutions, DateTime time) {
