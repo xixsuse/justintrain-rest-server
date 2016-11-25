@@ -134,6 +134,9 @@ public class Stop {
     @JsonDeserialize(using = MillisecondsDesererializer.class)
     public void setPlannedArrivalTime(DateTime plannedArrivalTime) {
         this.plannedArrivalTime = plannedArrivalTime;
+        if (plannedDepartureTime == null) {
+            this.plannedDepartureTime = this.plannedArrivalTime;
+        }
     }
 
     /* ACTUAL ARRIVAL TIME */
@@ -174,8 +177,9 @@ public class Stop {
     @JsonDeserialize(using = PlatformDeserializer.class)
     public void setPlannedDeparturePlatform(String plannedDeparturePlatform) {
         this.plannedDeparturePlatform = plannedDeparturePlatform;
-        if (this.departurePlatform == null || this.departurePlatform.length() == 0) {
+        if ((this.departurePlatform == null || this.departurePlatform.length() == 0)) {
             this.departurePlatform = this.plannedDeparturePlatform;
+        } else {
         }
     }
 
