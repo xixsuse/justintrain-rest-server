@@ -44,10 +44,11 @@ public class JourneyEndpoint {
         } else {
             train = TrainEndpoint.getTrain(trainDepartureStationId, trainId);
         }
+
         if (train != null) {
             log.warn(train.toString());
-            Stop journeyDepartureStop = train.getStopDataWithStationId(departureStationId);
-            Stop journeyArrivalStop = train.getStopDataWithStationId(arrivalStationId);
+            Stop journeyDepartureStop = train.getStopDataWithStationId(departureStationId, false);
+            Stop journeyArrivalStop = train.getStopDataWithStationId(arrivalStationId, false);
             if (journeyArrivalStop == null || journeyDepartureStop == null) {
                 log.warn("Impossibile trovare informazioni per {} {} {}", departureStationId, arrivalStationId, trainId);
                 throw new ResourceNotFoundException();
@@ -177,7 +178,7 @@ public class JourneyEndpoint {
                             Train train = TrainEndpoint.getTrain(change.getTrainId());
                             if (train != null) {
                                 mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
-                                change.setPlatform(train.getStopDataWithStationId(solution.getChanges().get(0).getDepartureStationId()));
+                                change.setPlatform(train.getStopDataWithStationId(solution.getChanges().get(0).getDepartureStationId(), true));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

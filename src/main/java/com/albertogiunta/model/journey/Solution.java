@@ -81,6 +81,10 @@ public class Solution {
             setHasChanges(false);
             solution = changes.get(0);
             changes = null;
+            if (solution.getTrainStatusCode() != null && solution.getTrainStatusCode() == 2) {
+                solution.setTimeDifference(null);
+                solution.setProgress(null);
+            }
         } else if (changesNumber > 1) {
             setHasChanges(true);
             solution = new Change(
@@ -91,7 +95,7 @@ public class Solution {
                     changes.get(lastIndex).getArrivalTime(),
                     timeDifference(),
                     duration(changes.get(0).getDepartureTime(), changes.get(lastIndex).getArrivalTime()),
-                    -1);
+                    null);
             // TODO che status code dare alle soluzioni con cambio?
         }
     }

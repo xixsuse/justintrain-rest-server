@@ -40,7 +40,7 @@ public class Change {
     public Change() {
     }
 
-    public Change(String departureStationName, DateTime departureTime, String departurePlatform, String journeyArrivalStationName, DateTime journeyArrivalTime, Integer timeDifference, String duration, int trainStatusCode) {
+    public Change(String departureStationName, DateTime departureTime, String departurePlatform, String journeyArrivalStationName, DateTime journeyArrivalTime, Integer timeDifference, String duration, Integer trainStatusCode) {
         this.departureStationName = departureStationName;
         this.departureTime = departureTime;
         this.departurePlatform = departurePlatform;
