@@ -35,10 +35,12 @@ public class Change {
 
     private String duration;
 
+    private Integer trainStatusCode;
+
     public Change() {
     }
-    
-    public Change(String departureStationName, DateTime departureTime, String departurePlatform, String journeyArrivalStationName, DateTime journeyArrivalTime, Integer timeDifference, String duration) {
+
+    public Change(String departureStationName, DateTime departureTime, String departurePlatform, String journeyArrivalStationName, DateTime journeyArrivalTime, Integer timeDifference, String duration, int trainStatusCode) {
         this.departureStationName = departureStationName;
         this.departureTime = departureTime;
         this.departurePlatform = departurePlatform;
@@ -46,6 +48,7 @@ public class Change {
         this.arrivalTime = journeyArrivalTime;
         this.timeDifference = timeDifference;
         this.duration = duration;
+        this.trainStatusCode = trainStatusCode;
     }
 
     @JsonGetter(value = JFIELD.TRAIN_CATEGORY)
@@ -162,6 +165,15 @@ public class Change {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    @JsonGetter(value = JFIELD.TRAIN_STATUS_CODE)
+    public Integer getTrainStatusCode() {
+        return trainStatusCode;
+    }
+
+    public void setTrainStatusCode(Integer trainStatusCode) {
+        this.trainStatusCode = trainStatusCode;
     }
 
     public void setPlatform(Stop stop) {

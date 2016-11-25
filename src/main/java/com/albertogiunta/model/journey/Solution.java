@@ -90,7 +90,9 @@ public class Solution {
                     changes.get(lastIndex).getArrivalStationName(),
                     changes.get(lastIndex).getArrivalTime(),
                     timeDifference(),
-                    duration(changes.get(0).getDepartureTime(), changes.get(lastIndex).getArrivalTime()));
+                    duration(changes.get(0).getDepartureTime(), changes.get(lastIndex).getArrivalTime()),
+                    -1);
+            // TODO che status code dare alle soluzioni con cambio?
         }
     }
 

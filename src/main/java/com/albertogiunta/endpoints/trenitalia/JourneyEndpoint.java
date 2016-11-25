@@ -177,7 +177,7 @@ public class JourneyEndpoint {
                             Train train = TrainEndpoint.getTrain(change.getTrainId());
                             if (train != null) {
                                 mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
-                                change.setPlatform(train.getStopDataWithStationName(solution.getChanges().get(0).getDepartureStationName()));
+                                change.setPlatform(train.getStopDataWithStationId(solution.getChanges().get(0).getDepartureStationId()));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -210,11 +210,7 @@ public class JourneyEndpoint {
             detailedTrainsNumber++;
         }
         try {
-            if (minTime != null) {
-                journey.getSolutions().get(minIndex).setArrivesFirst(true);
-            } else {
-                journey.getSolutions().get(minIndex).setArrivesFirst(false);
-            }
+            journey.getSolutions().get(minIndex).setArrivesFirst(minTime != null);
         } catch (IndexOutOfBoundsException e) {
             log.warn("IndexOutOfBoundsException!!!!!");
         }

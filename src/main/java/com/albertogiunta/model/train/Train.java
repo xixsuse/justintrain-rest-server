@@ -304,8 +304,8 @@ public class Train {
     }
     
     public Stop getStopDataWithStationName(String stationName) {
-        log.warn(stationName);
         for (Stop stop : stops) {
+            log.warn(stationName + " " + stop.getStationName());
             if (stop.getStationName()
                     //.replaceAll("Bologna C.LE/AV", "Bologna Centrale")
                     .equalsIgnoreCase(stationName)) {
@@ -318,9 +318,10 @@ public class Train {
     public Stop getStopDataWithStationId(String stationId) {
         log.warn(stationId);
         for (Stop stop : stops) {
+            log.warn(stationId + " " + stop.getStationId());
             if (stop.getStationId()
-                    .replaceAll("S05046", "S05043") //sosituisco bologna c.le/av con bologna c.le
-                    .replaceAll("(S|N)0+|(S|N)", "")
+                    //.replaceAll("S05046", "S05043") //sosituisco bologna c.le/av con bologna c.le
+                    //.replaceAll("(S|N)0+|(S|N)", "")
                     .equalsIgnoreCase(stationId)) {
                 return stop;
             }
