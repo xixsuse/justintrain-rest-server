@@ -37,7 +37,7 @@ public class JourneyEndpoint {
     public Journey instantJourney(@PathVariable(value = JAPI.DEP_STAT_ID) String departureId,
                                   @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
                                   @RequestParam(value = JAPI.IS_PREEMPTIVE, required = false, defaultValue = "false") Boolean isPreemptive) {
-        return getJourney(departureId, arrivalId, null, null, true, isPreemptive);
+        return getJourney(departureId, arrivalId, null, null, true, isPreemptive, true);
     }
 
     /**
@@ -58,14 +58,15 @@ public class JourneyEndpoint {
                                     @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
                                     @RequestParam(value = JAPI.STARTING_FROM) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmssZ) Date startAt,
                                     @RequestParam(value = JAPI.IS_PREEMPTIVE, required = false, defaultValue = "false") Boolean isPreemptive,
-                                    @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay) {
+                                    @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay,
+                                    @RequestParam(value = JAPI.INCLUDE_TTBT, required = false, defaultValue = "false") Boolean includeTrainToBeTaken) {
         DateTime d = new DateTime(startAt);
         if (d.isAfter(DateTime.now().withHourOfDay(23).withMinuteOfHour(59)) ||
                 d.isBefore(DateTime.now().withHourOfDay(0).withMinuteOfHour(0))) {
             includeDelay = false;
             log.warn("Searching for a day that is not today. I'll give you delays, but not today.");
         }
-        return getJourney(departureId, arrivalId, new DateTime(startAt), null, includeDelay, isPreemptive);
+        return getJourney(departureId, arrivalId, new DateTime(startAt), null, includeDelay, isPreemptive, includeTrainToBeTaken);
     }
 
     /**
@@ -84,7 +85,7 @@ public class JourneyEndpoint {
                                      @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
                                      @RequestParam(value = JAPI.END_AT) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmssZ) Date endAt,
                                      @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay) {
-        return getJourney(departureId, arrivalId, null, new DateTime(endAt), includeDelay, false);
+        return getJourney(departureId, arrivalId, null, new DateTime(endAt), includeDelay, false, false);
     }
 
 }

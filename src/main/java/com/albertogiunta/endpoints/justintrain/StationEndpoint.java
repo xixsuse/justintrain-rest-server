@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.albertogiunta.endpoints.trenitalia.StationEndpoint.getStation;
+import static com.albertogiunta.endpoints.trenitalia.TIStationEndpoint.getStation;
 
 @RestController
 public class StationEndpoint {

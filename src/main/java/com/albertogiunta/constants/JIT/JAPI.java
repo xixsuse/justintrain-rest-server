@@ -40,6 +40,7 @@ public class JAPI {
     public static final String END_AT = "end-at";
     public static final String IS_PREEMPTIVE = "preemptive";
     public static final String INCLUDE_DELAYS = "include-delays";
+    public static final String INCLUDE_TTBT = "include-train-to-be-taken";
 
     // PARAMS - NEWS CONTROLLER
     public static final String STATION_NAME = "stationName";

@@ -27,7 +27,6 @@ public class Stop {
 
     private DateTime plannedDepartureTime;
     private String plannedDeparturePlatform;
-    // fai l'ignore e metti tutto dentro uno
 
     private DateTime actualDepartureTime;
     private String actualDeparturePlatform;

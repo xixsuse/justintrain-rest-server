@@ -27,12 +27,16 @@ public class TrainEndpoint {
         try {
             return REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN + departureStationId + "/" + trainId, Train.class);
         } catch (RestClientException e) {
-            return null;
+            throw new ResourceNotFoundException();
         }
     }
     
     static Train getTrain(String trainId) throws ResourceNotFoundException {
-        return getTrain(getStationData(trainId).getStationLongCode(), trainId);
+        try {
+            return getTrain(getStationData(trainId).getStationLongCode(), trainId);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException();
+        }
     }
 
     public static TrainHeaderOnly getTrainHeaderOnly(String departureStationId, String trainId) throws ResourceNotFoundException {
@@ -50,6 +54,8 @@ public class TrainEndpoint {
     }
 
     public static Station getStationData(String trainId) throws ResourceNotFoundException {
-        return new Station(trainId, REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN_AUTOCOMPLETE + trainId, String.class));
+        Station s = new Station(trainId, REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN_AUTOCOMPLETE + trainId, String.class));
+        if (s.getStationShortName() == null) throw new ResourceNotFoundException();
+        return s;
     }
 }

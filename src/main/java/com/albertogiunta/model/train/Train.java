@@ -4,10 +4,7 @@ import com.albertogiunta.constants.JIT.JFIELD;
 import com.albertogiunta.constants.JIT.JVALUE;
 import com.albertogiunta.constants.TI.TFIELD;
 import com.albertogiunta.endpoints.trenitalia.JourneyEndpoint;
-import com.albertogiunta.model.serializers.LastSeenSerializer;
-import com.albertogiunta.model.serializers.TrainCategoryDeserializer;
-import com.albertogiunta.model.serializers.TrainOrientationDeserializer;
-import com.albertogiunta.model.serializers.TrainStatusCodeDeserializer;
+import com.albertogiunta.model.serializers.*;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.slf4j.Logger;
@@ -210,6 +207,7 @@ public class Train {
     }
 
     @JsonSetter(TFIELD.CANCELLED_STOPS_INFO)
+    @JsonDeserialize(using = CancelledStopsInfoDeserializer.class)
     public void setCancelledStopsInfo(String cancelledStopsInfo) {
         this.cancelledStopsInfo = cancelledStopsInfo;
     }
@@ -316,9 +314,9 @@ public class Train {
     }
 
     public Stop getStopDataWithStationId(String stationId, boolean useLongIds) {
-        log.warn(stationId);
+//        log.warn(stationId);
         for (Stop stop : stops) {
-            log.warn(stationId + " " + stop.getStationId());
+//            log.warn(stationId + " " + stop.getStationId());
             if (useLongIds) {
                 if (stop.getStationId()
                         .equalsIgnoreCase(stationId)) {

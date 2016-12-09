@@ -2,6 +2,7 @@ package com.albertogiunta.endpoints.trenitalia;
 
 import com.albertogiunta.constants.TI.TAPI;
 import com.albertogiunta.endpoints.exceptions.ResourceNotFoundException;
+import com.albertogiunta.model.Stations;
 import com.albertogiunta.model.journey.Change;
 import com.albertogiunta.model.journey.Journey;
 import com.albertogiunta.model.journey.Solution;
@@ -36,7 +37,6 @@ public class JourneyEndpoint {
                                                        String arrivalStationId,
                                                        String trainId,
                                                        String trainDepartureStationId) throws IOException {
-
 
         Train train;
         if (trainDepartureStationId == null) {
@@ -87,9 +87,10 @@ public class JourneyEndpoint {
                                      DateTime startTime,
                                      DateTime endTime,
                                      boolean includeDelays,
-                                     boolean searchPreemptive) throws ResourceNotFoundException {
+                                     boolean searchPreemptive,
+                                     boolean includeArrivesFirst) throws ResourceNotFoundException {
 
-        log.warn("SEARCHING JOURNEYS WITH PARAMS: {} {} {} {} {} {}", departureStationId, arrivalStationId, startTime, endTime, includeDelays, searchPreemptive);
+        log.warn("SEARCHING JOURNEYS WITH PARAMS: {} {} {} {} {} {}", departureStationId, arrivalStationId, startTime, endTime, includeDelays, searchPreemptive, includeArrivesFirst);
 
         DateTime time = startTime;
         if (startTime == null && endTime == null) time = DateTime.now();
@@ -115,12 +116,13 @@ public class JourneyEndpoint {
             cutEndOfList(journey, endTime);
         }
 
-        includeTrainDataAndFlatten(journey, includeDelays);
+        includeTrainDataAndFlatten(journey, includeDelays, includeArrivesFirst);
 
         return journey;
     }
 
     private static Journey getJourney(String departureStationId, String arrivalStationId, String dateTime) throws ResourceNotFoundException {
+
         Journey journey = REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.JOURNEY + departureStationId + "/" + arrivalStationId + "/" + dateTime, Journey.class);
 
         journey.setJourneyDepartureStationId(departureStationId);
@@ -163,7 +165,7 @@ public class JourneyEndpoint {
         return i >= solutions.size() ? i - solutions.size() : i;
     }
 
-    private static void includeTrainDataAndFlatten(Journey journey, boolean includeDelays) {
+    private static void includeTrainDataAndFlatten(Journey journey, boolean includeDelays, boolean includeArrivesFirst) {
         ObjectMapper mapper = new ObjectMapper();
 
         DateTime minTime = null;
@@ -178,7 +180,9 @@ public class JourneyEndpoint {
                             Train train = TrainEndpoint.getTrain(change.getTrainId());
                             if (train != null) {
                                 mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
-                                change.setPlatform(train.getStopDataWithStationId(solution.getChanges().get(0).getDepartureStationId(), true));
+                                String name = change.getDepartureStationName();
+                                Stations station = TIStationEndpoint.getStationOffline(name);
+                                change.setPlatform(train.getStopDataWithStationId(station.getStationLongId(), true));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -200,6 +204,8 @@ public class JourneyEndpoint {
 //                        journey.getSolutions().get(1).getSolution().getArrivalTime().minusMinutes(20)
 //                );
 //            }
+
+            if (!includeArrivesFirst) return;
 
             if (solution.leavesAfterNow() && solution.isFirstArriving(minTime)) {
                 minIndex = detailedTrainsNumber;

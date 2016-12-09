@@ -84,7 +84,7 @@ public class TrainEndpoint {
             return getTrain(trainAutocomplete(trainId).getStationLongCode(), trainId);
         } catch (ResourceNotFoundException e) {
             log.error("Train not found. ID {}", trainId);
-            return null;
+            throw new ResourceNotFoundException();
         }
     }
 
