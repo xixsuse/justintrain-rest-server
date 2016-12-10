@@ -56,13 +56,13 @@ public class JourneyEndpoint {
             TrainHeaderOnly trainHeader = new TrainHeaderOnly();
             ObjectMapper oj = new ObjectMapper();
             oj.readerForUpdating(trainHeader).readValue(new Gson().toJson(train));
-    
+
             trainHeader.setJourneyDepartureStationId(departureStationId);
             trainHeader.setJourneyDepartureStationName(journeyDepartureStop.getStationName());
             trainHeader.setJourneyDepartureTime(journeyDepartureStop.getPlannedDepartureTime());
             trainHeader.setJourneyDepartureStationVisited(journeyDepartureStop.isVisited());
             trainHeader.setDeparturePlatform(journeyDepartureStop.getDeparturePlatform());
-            
+
             trainHeader.setJourneyArrivalStationId(arrivalStationId);
             trainHeader.setJourneyArrivalStationName(journeyArrivalStop.getStationName());
             trainHeader.setJourneyArrivalTime(journeyArrivalStop.getPlannedDepartureTime());
@@ -105,7 +105,7 @@ public class JourneyEndpoint {
 
         log.warn(time.toString(yyyyMMddTHHmm00));
         log.warn(journey.toString());
-    
+
         if (searchPreemptive) {
             cutStartOfList(journey, startTime);
         }
@@ -205,13 +205,14 @@ public class JourneyEndpoint {
 //                );
 //            }
 
-            if (!includeArrivesFirst) return;
 
-            if (solution.leavesAfterNow() && solution.isFirstArriving(minTime)) {
-                minIndex = detailedTrainsNumber;
-                minTime = solution.getSolution().getArrivalTime();
-                if (solution.getSolution().getTimeDifference() != null) {
-                    minTime = minTime.plusMinutes(solution.getSolution().getTimeDifference());
+            if (includeArrivesFirst) {
+                if (solution.leavesAfterNow() && solution.isFirstArriving(minTime)) {
+                    minIndex = detailedTrainsNumber;
+                    minTime = solution.getSolution().getArrivalTime();
+                    if (solution.getSolution().getTimeDifference() != null) {
+                        minTime = minTime.plusMinutes(solution.getSolution().getTimeDifference());
+                    }
                 }
             }
             detailedTrainsNumber++;
