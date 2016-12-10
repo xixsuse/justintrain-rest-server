@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 @RestController
+@RequestMapping(value = JAPI.VERSION)
 public class MessageEndpoint {
     
     private static final RestTemplate REST_TEMPLATE;

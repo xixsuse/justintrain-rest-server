@@ -19,6 +19,7 @@ import static com.albertogiunta.endpoints.trenitalia.JourneyEndpoint.getJourneyT
 import static com.albertogiunta.endpoints.trenitalia.TrainEndpoint.*;
 
 @RestController
+@RequestMapping(value = JAPI.VERSION)
 public class TrainEndpoint {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());

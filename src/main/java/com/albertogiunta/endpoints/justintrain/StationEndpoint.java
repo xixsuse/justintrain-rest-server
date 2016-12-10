@@ -13,6 +13,7 @@ import java.util.List;
 import static com.albertogiunta.endpoints.trenitalia.TIStationEndpoint.getStation;
 
 @RestController
+@RequestMapping(value = JAPI.VERSION)
 public class StationEndpoint {
 
     /**

@@ -14,6 +14,7 @@ import static com.albertogiunta.endpoints.trenitalia.NewsEndpoint.getNews;
 import static com.albertogiunta.endpoints.trenitalia.NewsEndpoint.getNewsForTrain;
 
 @RestController
+@RequestMapping(value = JAPI.VERSION)
 public class NewsEndpoint {
 
     /**

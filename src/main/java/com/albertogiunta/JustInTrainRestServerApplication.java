@@ -1,11 +1,10 @@
 package com.albertogiunta;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JustInTrainRestServerApplication implements CommandLineRunner {
+public class JustInTrainRestServerApplication {
 
 //	@Autowired
 //	private StationRepository repository;
@@ -14,8 +13,8 @@ public class JustInTrainRestServerApplication implements CommandLineRunner {
         SpringApplication.run(JustInTrainRestServerApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+//    @Override
+//    public void run(String... args) throws Exception {
 //		// fetch all customers
 //		System.out.println("Customers found with findAll():");
 //		System.out.println("-------------------------------");
@@ -28,6 +27,6 @@ public class JustInTrainRestServerApplication implements CommandLineRunner {
 //		System.out.println("Customer found with findByFirstName('Alice'):");
 //		System.out.println("--------------------------------");
 //		System.out.println(repository.findByNameLong("Pesaro"));
-    }
+//    }
 
 }

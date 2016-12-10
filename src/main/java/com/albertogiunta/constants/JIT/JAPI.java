@@ -5,6 +5,7 @@ public class JAPI {
     // API ENDPOINTS
     public static final String DNS = "";
     public static final String TIME = "time";
+    public static final String VERSION = "v1";
 
     // TRAIN
     public static final String TRAIN_AUTOCOMPLETE = "/train/{trainId}/departure-station";

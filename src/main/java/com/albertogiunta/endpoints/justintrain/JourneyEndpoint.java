@@ -15,6 +15,7 @@ import java.util.Date;
 import static com.albertogiunta.endpoints.trenitalia.JourneyEndpoint.getJourney;
 
 @RestController
+@RequestMapping(value = JAPI.VERSION)
 public class JourneyEndpoint {
 
     private static final Logger log = LoggerFactory.getLogger(JourneyEndpoint.class);
