@@ -57,7 +57,7 @@ public class JourneyEndpoint {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Journey journeyAfterTime(@PathVariable(value = JAPI.DEP_STAT_ID) String departureId,
                                     @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
-                                    @RequestParam(value = JAPI.STARTING_FROM) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmssZ) Date startAt,
+                                    @RequestParam(value = JAPI.STARTING_FROM) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmZ) Date startAt,
                                     @RequestParam(value = JAPI.IS_PREEMPTIVE, required = false, defaultValue = "false") Boolean isPreemptive,
                                     @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay,
                                     @RequestParam(value = JAPI.INCLUDE_TTBT, required = false, defaultValue = "false") Boolean includeTrainToBeTaken) {
@@ -84,7 +84,7 @@ public class JourneyEndpoint {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Journey journeyBeforeTime(@PathVariable(value = JAPI.DEP_STAT_ID) String departureId,
                                      @PathVariable(value = JAPI.ARR_STAT_ID) String arrivalId,
-                                     @RequestParam(value = JAPI.END_AT) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmssZ) Date endAt,
+                                     @RequestParam(value = JAPI.END_AT) @DateTimeFormat(pattern = JVALUE.yyyyMMddTHHmmZ) Date endAt,
                                      @RequestParam(value = JAPI.INCLUDE_DELAYS, required = false, defaultValue = "false") Boolean includeDelay) {
         return getJourney(departureId, arrivalId, null, new DateTime(endAt), includeDelay, false, false);
     }

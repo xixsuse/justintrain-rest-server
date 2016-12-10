@@ -44,11 +44,11 @@ public class JVALUE {
 
 
     public static final String HHmm = "HH:mm";
-    public static final String yyyyMMddTHHmmssZ = "yyyy-MM-dd'T'HH:mmZ";
+    public static final String yyyyMMddTHHmmZ = "yyyy-MM-dd'T'HH:mmZ";
     public static final String yyyyMMddTHHmm00 = "yyyy-MM-dd'T'HH:mm:00";
     public static final String TZROME = "GMT+1";
     public static final String TZGMT = "GMT";
-    public static final DateTimeFormatter LONG_FORMATTER = DateTimeFormatter.ofPattern(yyyyMMddTHHmmssZ);
+    public static final DateTimeFormatter LONG_FORMATTER = DateTimeFormatter.ofPattern(yyyyMMddTHHmmZ);
     public static final DateTimeFormatter SHORT_FORMATTER = DateTimeFormatter.ofPattern(HHmm);
 
 

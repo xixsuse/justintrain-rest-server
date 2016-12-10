@@ -26,6 +26,13 @@ public class Station {
     public Station() {
     }
 
+    public Station(Stations s, String trainId) {
+        this.trainId = trainId;
+        this.stationShortName = s.getNameShort();
+        this.stationLongName = s.getNameLong();
+        this.stationLongCode = s.getStationLongId();
+        this.stationShortCode = s.getStationShortId();
+    }
 
     public Station(String trainId, String string) {
         this.trainId = trainId;

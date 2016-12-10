@@ -23,7 +23,7 @@ public class DateTimeSerializer extends StdSerializer<DateTime> {
         if (value == null) {
             gen.writeNull();
         } else {
-            gen.writeString(value.toString(JVALUE.yyyyMMddTHHmmssZ));
+            gen.writeString(value.toString(JVALUE.yyyyMMddTHHmmZ));
         }
     }
 }

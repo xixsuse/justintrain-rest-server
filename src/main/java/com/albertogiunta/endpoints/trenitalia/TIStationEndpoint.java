@@ -35,9 +35,9 @@ public class TIStationEndpoint {
         return stationArray.length > 0 ? Arrays.asList(stationArray) : new LinkedList<>();
     }
 
-    public static Stations getStationOffline(String query) throws ResourceNotFoundException {
-        System.out.println(query);
-        Stations s = repository.findByNameShort(query);
+    public static Stations getStationOfflineByNameShort(String nameShort) throws ResourceNotFoundException {
+        System.out.println(nameShort);
+        Stations s = repository.findByNameShort(nameShort);
         System.out.println(" " + s == null + " " + s.toString());
         return s;
     }

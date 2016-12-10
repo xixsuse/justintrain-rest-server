@@ -181,7 +181,7 @@ public class JourneyEndpoint {
                             if (train != null) {
                                 mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
                                 String name = change.getDepartureStationName();
-                                Stations station = TIStationEndpoint.getStationOffline(name);
+                                Stations station = TIStationEndpoint.getStationOfflineByNameShort(name);
                                 change.setPlatform(train.getStopDataWithStationId(station.getStationLongId(), true));
                             }
                         } catch (IOException e) {

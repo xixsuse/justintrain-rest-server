@@ -55,7 +55,7 @@ public class TrainEndpoint {
 
     public static Station getStationData(String trainId) throws ResourceNotFoundException {
         Station s = new Station(trainId, REST_TEMPLATE.getForObject(TAPI.DNS + TAPI.TRAIN_AUTOCOMPLETE + trainId, String.class));
-        if (s.getStationShortName() == null) throw new ResourceNotFoundException();
+        if (s.getStationLongName() == null) throw new ResourceNotFoundException();
         return s;
     }
 }
