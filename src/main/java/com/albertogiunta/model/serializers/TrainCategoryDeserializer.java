@@ -36,6 +36,9 @@ public class TrainCategoryDeserializer extends StdDeserializer<String> {
             case "Autobus":
                 category = "BUS";
                 break;
+            case "Urb":
+                category = "BUS";
+                break;
         }
 
         return category;

@@ -176,7 +176,9 @@ public class JourneyEndpoint {
             if (includeDelays) {
                 if (detailedTrainsNumber < maxDetailedTrains) {
                     for (Change change : solution.getChanges()) {
-                        if (!change.getTrainId().equalsIgnoreCase("Urb")) {
+                        System.out.println(change.toString());
+                        if (!change.getTrainId().equalsIgnoreCase("Urb") &&
+                                !change.getTrainCategory().equalsIgnoreCase("BUS")) {
                             try {
                                 Train train = TrainEndpoint.getTrain(change.getTrainId());
                                 if (train != null) {
@@ -188,7 +190,7 @@ public class JourneyEndpoint {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } else {
+                        } else if (change.getTrainId().equalsIgnoreCase("Urb")) {
                             change.setTrainId("");
                             change.setTrainCategory("BUS");
                         }
