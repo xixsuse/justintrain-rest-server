@@ -176,16 +176,21 @@ public class JourneyEndpoint {
             if (includeDelays) {
                 if (detailedTrainsNumber < maxDetailedTrains) {
                     for (Change change : solution.getChanges()) {
-                        try {
-                            Train train = TrainEndpoint.getTrain(change.getTrainId());
-                            if (train != null) {
-                                mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
-                                String name = change.getDepartureStationName();
-                                Stations station = TIStationEndpoint.getStationOfflineByNameShort(name);
-                                change.setPlatform(train.getStopDataWithStationId(station.getStationLongId(), true));
+                        if (!change.getTrainId().equalsIgnoreCase("Urb")) {
+                            try {
+                                Train train = TrainEndpoint.getTrain(change.getTrainId());
+                                if (train != null) {
+                                    mapper.readerForUpdating(change).readValue(new Gson().toJson(train));
+                                    String name = change.getDepartureStationName();
+                                    Stations station = TIStationEndpoint.getStationOfflineByNameShort(name);
+                                    change.setPlatform(train.getStopDataWithStationId(station.getStationLongId(), true));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } else {
+                            change.setTrainId("");
+                            change.setTrainCategory("BUS");
                         }
                     }
                 }
